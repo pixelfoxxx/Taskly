@@ -13,7 +13,7 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.black
     }
     
     //MARK: - Tableview Datasource Methods
@@ -40,7 +40,6 @@ class TodoListViewController: UITableViewController {
         } else {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -50,11 +49,9 @@ class TodoListViewController: UITableViewController {
         
         var textField = UITextField()
         
-        let alert = UIAlertController(title: "Add New Taskly Item", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            
-            //what will happen when the users click Add Item Button
+        let action = UIAlertAction(title: "Add Task ☑️", style: .default) { (action) in
             self.itemArray.append(textField.text!)
             self.tableView.reloadData()
         }
@@ -68,6 +65,12 @@ class TodoListViewController: UITableViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    
+    
+    
+    
+    
     
     
 }
