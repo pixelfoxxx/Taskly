@@ -10,9 +10,20 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggs", "Destroy Demogorgon"]
+    var defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupColorForButton()
+        
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
+    }
+    
+    //MARK: - Private Functions
+    
+    private func setupColorForButton() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor.black
     }
     
@@ -52,7 +63,11 @@ class TodoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Task ☑️", style: .default) { (action) in
+            
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
             self.tableView.reloadData()
         }
         
